@@ -1,25 +1,36 @@
-import logo from './logo.svg';
-import './App.css';
+import { Container } from "react-bootstrap";
+import { useState } from "react";
+import "./App.css";
+import { FavList } from "./components/list/FavList";
+import { SearchForm } from "./components/searchForm/SearchForm";
+import { Title } from "./components/Title";
 
 function App() {
+  const [favList, setFavList] = useState([]);
+
+  const addToFavList = (name) => {
+    setFavList([...favList, name]);
+  };
+
+  const removeFromFavList = (name) => {
+    const tempList = favList.filter((robot) => robot !== name);
+    setFavList(tempList);
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="wrapper">
+      <Container>
+        <Title className="title" />
+        <SearchForm addToFavList={addToFavList} />
+        <hr />
+        <FavList favList={favList} removeFromFavList={removeFromFavList} />
+      </Container>
     </div>
   );
 }
 
 export default App;
+
+///1. remove the middle display
+//2. remove the favorite list's repetition
+//3. change the button to "remove from the list"
